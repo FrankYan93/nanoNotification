@@ -1,8 +1,9 @@
 require 'sinatra'
 require 'sinatra/activerecord'
-require './config/environments' #database configuration
-require './models/model'
-set :port, 9494
+Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |file| require file }
+#Dir[File.dirname(__FILE__) + '/config/environments.rb'].each { |file| require file }
+
+#set :port, 9494
 get '/' do
   erb :index
 end
