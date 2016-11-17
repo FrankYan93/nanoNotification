@@ -17,11 +17,13 @@ ActiveRecord::Schema.define(version: 201611171033) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "type_id"
+    t.integer "owner_id"
+    t.integer "tweet_id"
     t.string  "content"
     t.string  "type"
     t.date    "create_time"
     t.boolean "readmark"
+    t.index ["owner_id"], name: "index_notifications_on_owner_id", using: :btree
   end
 
 end
