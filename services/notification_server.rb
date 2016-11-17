@@ -1,3 +1,8 @@
+Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |file| require file }
+require 'bunny'
+require 'thread'
+require 'json'
+
 conn = Bunny.new(automatically_recover: false)
 conn.start
 
