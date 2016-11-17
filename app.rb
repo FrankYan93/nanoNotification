@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |file| require file }
-#Dir[File.dirname(__FILE__) + '/config/environments.rb'].each { |file| require file }
+Dir[File.dirname(__FILE__) + '/config/environments.rb'].each { |file| require file }
 
 #set :port, 9494
 get '/' do
