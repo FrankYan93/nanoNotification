@@ -13,6 +13,7 @@ Dir[File.dirname(__FILE__) + '/api/*.rb'].each { |file| require file }
 
 set :port, 9494
 get '/' do
+  @showEnv=ENV["RABBITMQ_BIGWIG_URL"]
   erb :index
 end
 get '/start' do
