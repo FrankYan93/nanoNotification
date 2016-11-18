@@ -3,10 +3,7 @@ require 'thread'
 require 'json'
 require 'sinatra/activerecord'
 require_relative './models/notification.rb'
-conn = Bunny.new(ENV["RABBITMQ_BIGWIG_URL"],automatically_recover: false)
-conn.start
 
-ch = conn.create_channel
 
 class NotificationServer
 
@@ -50,11 +47,17 @@ class NotificationServer
     end
   end
 end
-begin
-  server=NotificationServer.new(ch)
-  " [x] Awaiting RPC requests"
-  server.start("rpc_queue")
-rescue Interrupt => _
-  ch.close
-  conn.close
+EventMachine.run do
+  conn = Bunny.new(ENV["RABBITMQ_BIGWIG_URL"],automatically_recover: false)
+  conn.start
+
+  ch = conn.create_channel
+  begin
+    server=NotificationServer.new(ch)
+    " [x] Awaiting RPC requests"
+    server.start("rpc_queue")
+  rescue Interrupt => _
+    ch.close
+    conn.close
+  end
 end
