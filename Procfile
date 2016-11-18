@@ -1,1 +1,1 @@
-web: ruby notification_server.rb
+web: ruby notification_server.rb &
