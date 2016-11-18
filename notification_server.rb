@@ -29,7 +29,7 @@ class NotificationServer
   def self.createNotification n
     print n
     puts
-    if Notification.where(user_id: n["user_id"],owner_id: n["owner_id"],tweet_id: n["tweet_id"]).size.zero?
+    unless Notification.where(user_id: n["user_id"],owner_id: n["owner_id"],tweet_id: n["tweet_id"]).size.zero?
       return
     else
       newNoti=Notification.new
