@@ -47,14 +47,15 @@ class NotificationServer
     end
   end
 end
+
 EventMachine.run do
   conn = Bunny.new(ENV["RABBITMQ_BIGWIG_URL"],automatically_recover: false)
   conn.start
-
+  puts "bunny is running"
   ch = conn.create_channel
   begin
     server=NotificationServer.new(ch)
-    " [x] Awaiting RPC requests"
+    puts " [x] Awaiting RPC requests"
     server.start("rpc_queue")
   rescue Interrupt => _
     ch.close
