@@ -3,7 +3,7 @@ require 'thread'
 require 'json'
 require 'sinatra/activerecord'
 require_relative './models/notification.rb'
-
+require 'eventmachine'
 
 class NotificationServer
 
