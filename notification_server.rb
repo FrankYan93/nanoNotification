@@ -3,7 +3,7 @@ require 'thread'
 require 'json'
 require 'sinatra/activerecord'
 require_relative './models/notification.rb'
-conn = Bunny.new(automatically_recover: false)
+conn = Bunny.new(ENV["RABBITMQ_BIGWIG_URL"],automatically_recover: false)
 conn.start
 
 ch = conn.create_channel
