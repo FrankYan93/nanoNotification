@@ -1,1 +1,1 @@
-worker: ruby notification-server.rb
+web: bundle exec puma -C config/puma.rb

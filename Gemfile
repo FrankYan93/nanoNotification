@@ -10,3 +10,4 @@ gem "redis"
 gem "rake"
 gem "eventmachine"
 gem "amqp"
+gem 'puma'
