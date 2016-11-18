@@ -5,7 +5,7 @@ class CreateNotifications < ActiveRecord::Migration
             t.integer :owner_id
             t.integer :tweet_id
             t.string :content
-            t.string :type
+            t.string :notitype
             t.date :create_time
             t.boolean :readmark
             t.index :owner_id

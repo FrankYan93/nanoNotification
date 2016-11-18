@@ -1,8 +1,8 @@
-Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |file| require file }
 require 'bunny'
 require 'thread'
 require 'json'
-
+require 'sinatra/activerecord'
+require_relative './models/notification.rb'
 conn = Bunny.new(automatically_recover: false)
 conn.start
 
@@ -27,21 +27,27 @@ class NotificationServer
   end
 
   def self.createNotification n
-    newNoti=Notification.new
-    if n[:tweet_id].nil?
-      newNoti.type='follow'
-      newNoti.content="#{n[:username]} followed you"
+    print n
+    puts
+    if Notification.where(user_id: n["user_id"],owner_id: n["owner_id"],tweet_id: n["tweet_id"]).size.zero?
+      return
     else
-      newNoti.type='like'
-      newNoti.tweet_id=n[:tweet_id]
-      newNoti.content="#{n[:username]} liked your tweet"
-    end
-    newNoti.user_id=n[:user_id]
-    newNoti.owner_id=n[:owner_id]
-    newNoti.readmark=false
-    newNoti.create_time=Time.now
+      newNoti=Notification.new
+      if n["tweet_id"].nil?
+        newNoti.notitype='follow'
+        newNoti.content="#{n["username"]} followed you"
+      else
+        newNoti.notitype='like'
+        newNoti.tweet_id=n["tweet_id"]
+        newNoti.content="#{n["username"]} liked your tweet"
+      end
+      newNoti.user_id=n["user_id"]
+      newNoti.owner_id=n["owner_id"]
+      newNoti.readmark=false
+      newNoti.create_time=Time.now
 
-    newNoti.save
+      newNoti.save
+    end
   end
 end
 begin
