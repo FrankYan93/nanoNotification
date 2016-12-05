@@ -49,7 +49,7 @@ class NotificationServer
 end
 
 EventMachine.run do
-  conn = Bunny.new(ENV["RABBITMQ_BIGWIG_URL"],automatically_recover: false)
+  conn = Bunny.new(ENV["RABBITMQ_BIGWIG_RX_URL"],automatically_recover: false)
   conn.start
   puts "bunny is running"
   ch = conn.create_channel
