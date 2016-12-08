@@ -8,6 +8,4 @@
 
 # Tips
 
-1. Please call './start' to start the service.
-
-2. Please force kill the process to stop.
+- Please call './start' to start the service.

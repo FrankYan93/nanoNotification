@@ -21,4 +21,5 @@ get '/start' do
     puts "start"
     require_relative './notification_server.rb'
   }
+  "The server is working now!"
 end
