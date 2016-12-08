@@ -17,6 +17,8 @@ get '/' do
   erb :index
 end
 get '/start' do
-  puts "start"
-  require_relative './notification_server.rb'
+  Thread.new{ |variable|
+    puts "start"
+    require_relative './notification_server.rb'
+  }
 end
