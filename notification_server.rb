@@ -16,6 +16,7 @@ class NotificationServer
     @x = @ch.default_exchange
 
     @q.subscribe(:block => true) do |delivery_info, properties, payload|
+      print "\ndelivery_info:#{delivery_info}\nproperties:#{properties}\npayload:#{payload}\n"
       n = JSON.parse payload
       r = self.class.createNotification(n)
 
